@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" ><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" ><!--<![endif]-->
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricevuta Acquisto</title>
+  <!-- Fogli di stile -->
+  <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  <link href="css/mystyle.css" rel="stylesheet" media="screen">
+  <!-- respond.js per IE8 -->
+  <!--[if lt IE 9]>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+   <div class="container">
+     <div class="row">
+       <div class="col-md-6">
+         <div class="page-header">
+           <h1> SCUOLA SPAZIO DANZA <small>Prenotazione Saggio</small></h1>
+         </div>
+         <h3>Dati Cliente </h3>
+         <h3> <span style="font-style: small-caps"> Nome: </span> <%=token.sub.name%> </h3>
+         <h3> <span style="font-style: small-caps"> Cognome: </span> <%=token.sub.surname%> </h3>
+         <h3> <span style="font-style: small-caps"> Allievo: </span> <%=token.sub.allievo%> </h3>
+         <h3>Posti prenotati </h3>
+         <ul>
+         <% for (var i=0; i<token.seats.length; i++) {%>
+           <li> Posto <%= token.seats[i] %> </li>
+         <% } %>
+         </ul>
+         <hr>
+         <h3> <%= token.total %> €</h3>
+         <button onclick="window.print()">Stampa la ricevuta</button>
+       </div>
+       <div class="col-md-6">
+         <div class="center-block text-center">
+           <h1><strong>
+           <% var str = token.id.toString(16) + token.iss.charAt(3) + token.iss.charAt(10) %>
+           <%= str %>
+          </strong></h1>
+          <br><br><br>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=<%=token.raw%>">
+          <p> <%=token.iat%> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+ </body>
+</html>
